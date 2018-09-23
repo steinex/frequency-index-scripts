@@ -6,6 +6,7 @@ root_dir=$(dirname "$0")"/.."
     rofi "$@" -dmenu | \
     (read x; [[ -z $x ]] || (
         emoji=$(cut -d$'\t' -f1 <<<"$x" | sed -e 's/[[:space:]]*$//')
-        echo -n "$emoji" | xclip -selection clipboard
+        #echo -n "$emoji" | xclip -selection clipboard
+        xdotool type --delay 20 --clearmodifiers "$emoji"
         "$root_dir/update_freq.sh" ~/.emoji_frequent.txt "$x"
         "$root_dir/update_index.sh" ~/.emoji_index.txt ~/.emoji_frequent.txt "$x"))
